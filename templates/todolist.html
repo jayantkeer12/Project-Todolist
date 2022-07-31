@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {%load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do lsit</title>
+    <link rel="stylesheet" href="{%static 'CSS/new.css'%}">
 </head>
 <body>
+<div class="login-form">       
     <h1>To Do List site</h1>
     <ul>
         {% for i in all_items %}
@@ -18,10 +21,33 @@
         </li>
         {%endfor%}
     </ul>
-    <form action="/addTodoItem/" method="post">
+    <form action="/addTodoItem/" method="post" enctype="multipart/form-data">
         {%csrf_token%}
         <input type="text" name="content">
+        <br>
+        <label for="img">Select image:</label>
+        <input type="file" name="img" accept="image/*">
         <input type="submit" value="Add Todo item">
     </form>
+    <br>
+    <br>
+    <div>
+    <form action="home.html" method="post">
+        {%csrf_token%}
+         {{form}}
+        <input type="submit" value="Log Out">
+    </form>
+    <br>
+    <br>   
+    {%for x in img%}
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card-m-2">
+                <img src="{{x.image.url}}" alt="" class="card-img-top" height="200px">
+            </div>
+        </div>
+        {%endfor%}
+</div>
+</div>
 </body>
 </html>

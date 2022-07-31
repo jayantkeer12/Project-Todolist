@@ -1,0 +1,22 @@
+body {
+    background: #e35869;
+    font-family: 'Rubik', sans-serif;
+  }
+  .login-form {
+    background: #fff;
+    width: 700px;
+    margin: 65px auto;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+  }
+  #rightbox{
+    float:right-Top;
+    background:blue;
+    width:40%;
+    height:350px;
+}
