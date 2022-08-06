@@ -6,7 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do lsit</title>
-    <link rel="stylesheet" href="{%static 'CSS/new.css'%}">
+    <h2 id="p1"></h2>
+    <script>
+        console.log("function is running ")
+        var temp='hi'
+        const gre="todoapp"
+        var ws= new WebSocket("ws://127.0.01:8000/ws/sc/"+"todoapp/")
+        ws.addEventListener('error', function (event) {
+            console.log('WebSocket error: ', event);
+          });
+        ws.onopen= function(){
+            console.log('WebSocket connect open...')
+            ws.send('hi, msg from client..')
+        }      
+        ws.onmessage= function(event){
+            temp=event.data
+            console.log('WebSocket Recived Message from server...',event.data)
+            document.getElementById("p1").innerText=event.data
+        }
+        ws.onerror= function(event){
+            console.log('WebSocket Error occured ...',event)
+        }
+        ws.onclose= function(event){
+            console.log('WebSocket Connection CLosed ...',event)
+
+        }
+    
+    </script>
 </head>
 <body>
 <div class="login-form">       
@@ -23,11 +49,11 @@
     </ul>
     <form action="/addTodoItem/" method="post" enctype="multipart/form-data">
         {%csrf_token%}
-        <input type="text" name="content">
+        <input id="text1" type="text" name="content">
         <br>
         <label for="img">Select image:</label>
-        <input type="file" name="img" accept="image/*">
-        <input type="submit" value="Add Todo item">
+        <input type="file" id="img2" name="img" accept="image/*">
+        <input id="click1" " type="submit" value="Add Todo item">
     </form>
     <br>
     <br>
@@ -39,11 +65,11 @@
     </form>
     <br>
     <br>   
-    {%for x in img%}
+    {%for x in all_items%}
     <div class="row">
         <div class="col-sm-4">
             <div class="card-m-2">
-                <img src="{{x.image.url}}" alt="" class="card-img-top" height="200px">
+                <img src="{{x.image}}" alt="" class="card-img-top" height="200px">
             </div>
         </div>
         {%endfor%}

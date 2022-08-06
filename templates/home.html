@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <title>Confirmation</title>
   <link rel="stylesheet" href="{%static 'CSS/one.css'%}"> 
-  <script  src="{% static 'script.js'%}"></script>  
+<!----  <script  src="{% static 'script.js'%}"></script> --> 
+<script>
+  console.log("function is running ")
+  </script>
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -19,7 +22,7 @@
       <div class="input-field">
         <input type="password" placeholder="Password" name="psw" autocomplete="new-password">
       </div>
-      <a href="http://127.0.0.1:8000/Forgot.html" class="link">Forgot Your Password?</a>
+      <a href="/password_reset_input_flow_data" class="link">Forgot Your Password?</a>
     </div>
     <div class="action">
       <button>Sign in</button>

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,8 +71,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'todoproject.wsgi.application'
-
+#WSGI_APPLICATION = 'todoproject.wsgi.application'
+ASGI_APPLICATION = 'todoproject.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -147,3 +148,9 @@ CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER='json'
 CELERY_TIMEZONE='Asia/kolkata'
 CELERY_RESULT_BACKEND='django-db'
+
+CHANNEL_LAYERS={
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+     }
+}
