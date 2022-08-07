@@ -1,3 +1,5 @@
+from email import message
+import json
 from channels.consumer import SyncConsumer,AsyncConsumer
 from channels.generic.websocket import WebsocketConsumer,AsyncWebsocketConsumer
 from channels.exceptions import StopConsumer
@@ -7,21 +9,31 @@ import asyncio
 class  MySyncConsumer(WebsocketConsumer):
 
     def connect(self):
-        self.accept()
         print("Channel Name:",self.channel_name)
+        print("Channel Name:",self.channel_layer)
         print("it is Connected")
         print("#######CONNECTED############")
-
-    def disconnect(self, close_code):
-        print("WebSocket Disconnected")
-        
-
+        self.group_name=self.scope['url_route']['kwargs']['gre']
+        print(self.group_name)
+        async_to_sync(self.channel_layer.group_add)(
+            self.group_name,
+            self.channel_name
+            )
+        self.accept()
     def receive(self, text_data=None, bytes_data=None):
         print("Data from Client ...",text_data)
-        self.send(text_data="message from server"+text_data)
         async_to_sync(self.channel_layer.group_send)(
-            "chat",
+            'todoapp',
             {
-                "type": "chat.message",
-                "text": text_data,
-            },)
+                'type':'chat.message',
+                 'mesg':'Your data is stored '
+            }
+        )
+    def chat_message(self,event):
+        print("Event...",event)
+        self.send(text_data=json.dumps({
+            'msg':event['mesg']
+        }))        
+    
+    def disconnect(self, close_code):
+        print("WebSocket Disconnected")

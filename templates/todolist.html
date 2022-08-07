@@ -11,7 +11,7 @@
         console.log("function is running ")
         var temp='hi'
         const gre="todoapp"
-        var ws= new WebSocket("ws://127.0.01:8000/ws/sc/"+"todoapp/")
+        var ws= new WebSocket("ws://127.0.01:8000/ws/sc/"+gre+"/")
         ws.addEventListener('error', function (event) {
             console.log('WebSocket error: ', event);
           });
@@ -22,7 +22,8 @@
         ws.onmessage= function(event){
             temp=event.data
             console.log('WebSocket Recived Message from server...',event.data)
-            document.getElementById("p1").innerText=event.data
+            data=JSON.parse(event.data)
+            document.getElementById("p1").innerText=data.msg
         }
         ws.onerror= function(event){
             console.log('WebSocket Error occured ...',event)

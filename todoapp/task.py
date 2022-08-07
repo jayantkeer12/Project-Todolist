@@ -48,8 +48,16 @@ def test_fun2(self,url):
         pytesseract.tesseract_cmd=path_to_tesseract
         img = Image.open(path_to_image)
         text = pytesseract.image_to_string(img)
-        print('------------H')
-        async_to_sync(CHANNEL_LAYERS.group_send)({"type": "chat.force_disconnect"})
+        channel_layer=get_channel_layer()
+        print("----ch",channel_layer)
+        channel_layer.group_send(
+            'todoapp',
+            {
+                'type':'chat.message',
+                 'mesg':'Your data is stored, message from task '
+            }
+        )
+        
         print(text,"-----------",status)
         return  status
     else:
