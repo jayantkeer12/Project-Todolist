@@ -10,7 +10,7 @@ class  MySyncConsumer(WebsocketConsumer):
 
     def connect(self):
         print("Channel Name:",self.channel_name)
-        print("Channel Name:",self.channel_layer)
+        print("Channel Layer:",self.channel_layer)
         print("it is Connected")
         print("#######CONNECTED############")
         self.group_name=self.scope['url_route']['kwargs']['gre']
@@ -26,7 +26,7 @@ class  MySyncConsumer(WebsocketConsumer):
             'todoapp',
             {
                 'type':'chat.message',
-                 'mesg':'Your data is stored '
+                 'mesg':'Your data is not stored '
             }
         )
     def chat_message(self,event):

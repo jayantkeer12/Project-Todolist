@@ -50,7 +50,7 @@ def test_fun2(self,url):
         text = pytesseract.image_to_string(img)
         channel_layer=get_channel_layer()
         print("----ch",channel_layer)
-        channel_layer.group_send(
+        async_to_sync(channel_layer.group_send)(
             'todoapp',
             {
                 'type':'chat.message',
